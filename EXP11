@@ -1,0 +1,32 @@
+int val;
+int tempPin = 0;
+float tfmax = 0;
+float tfmin = 100;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  val = analogRead(tempPin);
+  float mv = (val / 1024.0) * 500;
+  float cel = mv;
+  float farh = (cel * 9) / 5 + 32;
+
+  if (farh > tfmax) {
+    tfmax = farh;
+  }
+
+  if (farh < tfmin) {
+    tfmin = farh;
+  }
+
+  Serial.print("Temp (F): ");
+  Serial.print(farh);
+  Serial.print(" | Max: ");
+  Serial.print(tfmax);
+  Serial.print(" | Min: ");
+  Serial.println(tfmin);
+
+  delay(1000);
+}
